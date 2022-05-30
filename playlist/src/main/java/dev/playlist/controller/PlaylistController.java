@@ -8,9 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-import org.junit.Test;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +28,6 @@ public class PlaylistController {
 	
 	//노래 리스트 조회
 	@RequestMapping("/song")
-//	public List<Song> readSong() {
 	public List<Song> readSong() {
 		String selectQuery = "SELECT s FROM Song as s";
 		List<Song> resultSong = em.createQuery(selectQuery, Song.class).getResultList();
@@ -43,8 +40,22 @@ public class PlaylistController {
 			e.printStackTrace();
 		}
 		
-		for (Song song : resultSong) {
-			System.out.println(song);
+		
+		return resultSong;
+	}
+	
+	//앨범 수록곡 확인
+	@RequestMapping("/AlbumInSong")
+	public List<Object[]> readAlbumInSong(@RequestParam("album_id") int albumId) {
+		String selectQuery = ("SELECT s, a.albumId FROM Song as s JOIN Album as a ON a.albumId = s.album WHERE a.albumId = " + albumId);
+		List<Object[]> resultSong = em.createQuery(selectQuery, Object[].class).getResultList();
+
+		try {
+			tx.begin();
+			em.persist(resultSong);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return resultSong;
@@ -52,28 +63,36 @@ public class PlaylistController {
 	
 	
 	
-	//앨범 및 노래 추가
-	@RequestMapping("/addsong")
-	public void addSong(@RequestParam("album title") String albumTitle, @RequestParam("artist") String artist, 
-						@RequestParam("genre") String genre, @RequestParam("releaseDate") String releaseDate, 
-						@RequestParam("sing title") String singTitle, @RequestParam("length") String length)
+	
+	//앨범 추가
+	@RequestMapping("/addAlbum")
+	public void addAlbum(@RequestParam("album_title") String albumTitle, @RequestParam("artist") String artist, 
+						@RequestParam("genre") String genre, @RequestParam("releaseDate") String releaseDate)
 	{
 		tx.begin();
 		
 		Album album1 = new Album(albumTitle, artist, genre, LocalDate.parse(releaseDate, DATE_PATTERN));
 		
 		em.persist(album1);
-		
+		tx.commit();
+	}
+	
+	//노래 추가
+	@RequestMapping("/addSong")
+	public void addAlbum(@RequestParam("song_title") String singTitle, @RequestParam("length") String length, @RequestParam("album_id") int albumId)
+	{
+		tx.begin();
+		Album album = em.find(Album.class, albumId);
 		Song song1 = new Song(singTitle, length);
-		song1.setArtist(album1.getArtist());
-		
+		song1.setArtist(album.getArtist());
+		song1.setAlbum(album);
 		em.persist(song1);
 		tx.commit();
 	}
 	
 	//플레이리스트 추가
 	@RequestMapping("/addPlaylist")
-	public void addPlaylist(@RequestParam("playList name") String playListName) {
+	public void addPlaylist(@RequestParam("playlist_Name") String playListName) {
 		tx.begin();
 		Playlist playlist1 = new Playlist(playListName);
 		em.persist(playlist1);
@@ -82,7 +101,7 @@ public class PlaylistController {
 	
 	//플레이리스트 이름 수정
 	@RequestMapping("/updatePlaylist")
-	public void updatePlaylist(@RequestParam("playList name") String playListName, @RequestParam("playList Id") int plId) {
+	public void updatePlaylist(@RequestParam("playlist_Name") String playListName, @RequestParam("playlist_Id") int plId) {
 		tx.begin();
 		Playlist playlist1 = em.find(Playlist.class, plId);
 		playlist1.setPlaylist_name(playListName);

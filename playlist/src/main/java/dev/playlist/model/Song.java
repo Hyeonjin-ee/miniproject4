@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Song {
@@ -14,23 +15,16 @@ public class Song {
 	private int songId;
 	private String title;
 	
-	// Song°ú AlbumÀÇ °ü°è ????? ¤Ð¤Ð
-	@JoinColumn(name="album_id")
 	private String artist;
 	
 	private String length;
 	
-	@ManyToOne // 양방향 연관관계 설정을 위한 ManyToOne
-	@JoinColumn(name = "playlist_song_id")
-	private PlaylistSong playlistsong;
+	@ManyToOne
+	@JoinColumn(name = "album_id")
+	private Album album; //album_id
 	
-	// PlaylistSong이 세팅될 때 List<Song> 동시에 값을 넣어주는 메서드 정의
-	public void insertSong(PlaylistSong playlistsong) {
-		this.playlistsong = playlistsong;
-		playlistsong.getSong().add(this);
-	}
-	
-	//»ý¼ºÀÚ
+		
+	//������
 	public Song() {}
 
 	public Song(String title, String length) {
@@ -50,6 +44,7 @@ public class Song {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getArtist() {
 		return artist;
 	}
@@ -63,4 +58,13 @@ public class Song {
 		this.length = length;
 	}
 
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
+
+	
 }

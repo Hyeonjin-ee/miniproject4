@@ -1,8 +1,8 @@
-insert into Song (artist, length, title) values ("싸이(PSY)", "02:55", "That That (Prod. & feat. SUGA of BTS)");
-insert into Song (artist, length, title) values ("(여자)아이들", "02:55", "I NEVER DIE");
-insert into Song (artist, length, title) values ("IVE(아이브)", "02:58", "LOVE DIVE");
-insert into Song (artist, length, title) values ("BIGBANG(빅뱅)", "03:09", "봄여름가을겨울 (Still Life)");
-insert into Song (artist, length, title) values ("멜로망스", "03:05", "사랑인가 봐");
+insert into Song (artist, length, title) values ("싸이(PSY)", "02:55", "That That (Prod. & feat. SUGA of BTS)", 1);
+insert into Song (artist, length, title) values ("(여자)아이들", "02:55", "I NEVER DIE", 2);
+insert into Song (artist, length, title) values ("IVE(아이브)", "02:58", "LOVE DIVE", 3);
+insert into Song (artist, length, title) values ("BIGBANG(빅뱅)", "03:09", "봄여름가을겨울 (Still Life)", 3);
+insert into Song (artist, length, title) values ("멜로망스", "03:05", "사랑인가 봐", 3);
 insert into Song (artist, length, title) values ("임영웅", "04:03", "사랑은 늘 도망가");
 insert into Song (artist, length, title) values ("BIG Naughty(서동현)", "03:09", "정이라고 하자 (Feat. 10CM)");
 insert into Song (artist, length, title) values ("경서", "03:08", "나의 X에게");

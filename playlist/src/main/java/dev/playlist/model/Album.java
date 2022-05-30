@@ -1,21 +1,29 @@
 package dev.playlist.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Album {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "album_id")
 	private int albumId;
 	private String albumTitle;
 	private String artist;
 	private String albumGenre;
 	private LocalDate releaseDate;
+
+	@OneToMany(mappedBy = "album")
+	private List<Song> song = new ArrayList<>();
 
 	
 	//»ý¼ºÀÚ
@@ -36,10 +44,10 @@ public class Album {
 	public void setAlbumId(int albumId) {
 		this.albumId = albumId;
 	}
-	public String getAlbum_title() {
+	public String getAlbumTitle() {
 		return albumTitle;
 	}
-	public void setAlbum_title(String albumTitle) {
+	public void setAlbumTitle(String albumTitle) {
 		this.albumTitle = albumTitle;
 	}
 	public String getArtist() {
@@ -57,7 +65,14 @@ public class Album {
 	public LocalDate getReleaseDate() {
 		return releaseDate;
 	}
-	public void setRelease_date(LocalDate releaseDate) {
+	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
 	}
+//	public List<Song> getSong() {
+//		return song;
+//	}
+//	public void setSong(List<Song> song) {
+//		this.song = song;
+//	}
+	
 }
