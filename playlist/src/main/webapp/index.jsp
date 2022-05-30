@@ -26,6 +26,7 @@
 		<input id="author" type="text" name="releaseDate"><br>
 		<input type="submit">        
 	</form>
+	
 	<form action="addSong">
 		<label for="author">노래 제목 : </label><br>
 		<input id="author" type="text" name="song_title"><br>
@@ -48,9 +49,14 @@
 		<label for="name">플레이리스트 ID : </label><br>
 		<input id="name" type="text" name="playlist_Id"><br>
 		<input type="submit">     
+		
 	</form>
-	
-	<a href="updatePlaylist">수정 플레이리스트</a>
+		<form action="deletePlaylist">
+		<label for="name">플레이리스트 삭제 </label><br>
+		<label for="name">플레이리스트 ID : </label><br>
+		<input id="name" type="text" name="playListId"><br>
+		<input type="submit">     
+	</form>
 	
 </body>
 </html>
