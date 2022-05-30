@@ -47,7 +47,7 @@ public class AppTest {
 	public void testSave() {
 		tx.begin();
 		
-		Album album1 = new Album("TOMBOY", "IDLE", "·Ï/¸ŞÅ», R&B/Soul, ´í½º, ·¦/ÈüÇÕ", LocalDate.parse("2022.03.14", DATE_PATTERN));
+		Album album1 = new Album("TOMBOY", "IDLE", "ë¡/ë©”íƒˆ, R&B/Soul, ëŒ„ìŠ¤, ë©/í™í•©", LocalDate.parse("2022.03.14", DATE_PATTERN));
 		
 		em.persist(album1);
 		
@@ -58,7 +58,7 @@ public class AppTest {
 		tx.commit();
 	}
 	
-	@Test //ÇÃ·¹ÀÌ¸®½ºÆ® Ãß°¡
+	@Test //í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ì¶”ê°€
 	public void addPlaylist() {
 		tx.begin();
 		Playlist playlist1 = new Playlist("playlist_1");
@@ -67,35 +67,50 @@ public class AppTest {
 	}
 	
 	
-	@Test //ÇÃ·¹ÀÌ¸®½ºÆ® »èÁ¦
+	@Test //í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ì‚­ì œ
 	public void deletePlaylist() {
 		
 	}
 	
-//	@Test //ÇÃ·¹ÀÌ¸®½ºÆ® Á¶È¸
+//	@Test //í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
 //	public void readPlaylist(int playlistId) {
 //		Playlist choicePlayList = em.find(Playlist.class, playlistId);
 //		List<Playlist> allPlayList = choicePlayList.get
 //	}
 	
-	@Test //ÇÃ·¹ÀÌ¸®Æ®½º ÀÌ¸§ ¼öÁ¤
+	@Test //í”Œë ˆì´ë¦¬íŠ¸ìŠ¤ ì´ë¦„ ìˆ˜ì •
 	public void updatePlaylist() {
 		tx.begin();
 		Playlist playlist1 = em.find(Playlist.class, 1);
-		playlist1.setPlaylist_name("ÅäºñÀÇ ÇÃ·¹ÀÌ¸®½ºÆ®");
+		playlist1.setPlaylist_name("í† ë¹„ì˜ í”Œë ˆì´ë¦¬ìŠ¤íŠ¸");
 		
 		tx.commit();
 	}
 	
-	@Test //ÇÃ·¹ÀÌ¸®½ºÆ® song °î Ãß°¡
+	@Test //í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ song ê³¡ ì¶”ê°€
 	public void addPlayListSong() {
 		
 	}
 	
-	@Test //ÇÃ·¹ÀÌ¸®½ºÆ® song °î »èÁ¦
+	@Test //í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ song ê³¡ ì‚­ì œ
 	public void deletePlayListSong() {
 		
 	}
 	
+	@Test 
+	// playlistSongì— Songì¶”ê°€ 
+	public void insertPlaylistSong() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("playlist");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		tx.begin();
+		
+		String jqpl = "SELECT s FROM song s where artist = :artist";
+		List<Song> songList = em.createQuery(jqpl, Song.class)
+								.setParameter("artist", "ì”ë‚˜ë¹„")
+								.getResultList();
+		tx.commit();
+	}
 
 }
