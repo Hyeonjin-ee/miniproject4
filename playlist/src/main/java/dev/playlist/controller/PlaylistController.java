@@ -31,7 +31,6 @@ public class PlaylistController {
 	public List<Song> readSong() {
 		String selectQuery = "SELECT s FROM Song as s";
 		List<Song> resultSong = em.createQuery(selectQuery, Song.class).getResultList();
-
 		try {
 			tx.begin();
 			em.persist(resultSong);
@@ -109,6 +108,14 @@ public class PlaylistController {
 		tx.commit();
 	}
 	
+	// 플레이리스트 삭제
+	@RequestMapping("/deletePlaylist")
+	public void deletePlaylist(@RequestParam("playListId") int playlistId) {
+		tx.begin();
+		Playlist playlist = em.find(Playlist.class, playlistId);
+		em.remove(playlist);
+		tx.commit();
+	}
 }
 
 

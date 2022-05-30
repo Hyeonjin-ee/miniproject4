@@ -1,5 +1,6 @@
 package dev.playlist.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,9 @@ public class Song {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "song_id")
 	private int songId;
+	
 	private String title;
 	
 	private String artist;
